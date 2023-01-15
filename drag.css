@@ -1,0 +1,106 @@
+.example-parent {
+    border: 2px solid white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+  
+  #dropzone {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+  
+  .example-draggable-operater {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-weight: normal;
+    width: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+    padding: 2px;
+  }
+  .example-draggable-keywords {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-weight: normal;
+    color: blue;
+    width: flex;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+    padding: 2px;
+  }
+  .example-draggable-number {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    color: lightseagreen;
+    font-weight: normal;
+    width: flex;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 10px;
+    padding: 2px;
+  }
+  .example-draggable-var {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-weight: normal;
+    color: green;
+    width: flex;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 10px;
+    padding: 2px;
+  }
+  .example-draggable-input {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-weight: normal;
+    width: 100px;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 10px;
+    padding: 2px;
+  }
+  .example-draggable-input-function {
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-weight: normal;
+    color: red;
+    width: 100px;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 10px;
+    padding: 2px;
+  }
+  input[type="text"] {
+    height: 30px;
+    width: 50px;
+    background-color: rgb(208, 230, 238);
+    }
+  .outer{
+    width: 780px;
+    height: 10px;
+  }
+  .example-dropzone {
+    background-color: white;
+    border: 2px solid gray;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 0px;
+    justify-content: left;
+    width: 780px;
+    height: 70px;
+    padding: 10px;
+  }
