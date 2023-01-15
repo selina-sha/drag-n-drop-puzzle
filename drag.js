@@ -156,6 +156,4 @@ button.addEventListener("click", () => {
     setTimeout(function(){location.reload()}, 3000)
   }
 });
-
-
 }
