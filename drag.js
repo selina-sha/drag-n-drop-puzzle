@@ -1,15 +1,16 @@
+const NUMBER_OF_GRID_EACH_ROW = 8
+const NUM_OF_DROPZONES = 4
+
 function onDragStart(event) {
   event.dataTransfer.setData("text", event.target.id);
 }
 
 function onDragOver(event) {
   event.preventDefault();
-  event.target.classList.add("droptarget");
 }
 
 function onDrop(event) {
   event.preventDefault();
-  event.target.classList.remove("droptarget");
   var data = event.dataTransfer.getData("text");
   var draggableElement = document.getElementById(data);
   var targetDropZoneId = event.target.id;
@@ -17,14 +18,14 @@ function onDrop(event) {
   if (lastItem == null){event.target.appendChild(draggableElement);}
   else{
     var text = lastItem.textContent;
-    var newTargetDropZoneId = newLineOnColon(text, targetDropZoneId)
+    var newTargetDropZoneId = findDropZoneId(text, targetDropZoneId) 
 
     if (!(targetDropZoneId === newTargetDropZoneId)){
       event.preventDefault();
-      gridNum = getGridNumber(document.getElementById(targetDropZoneId), 70)
-      for (let k = newTargetDropZoneId; k <= 4; k++){
+      gridNum = getGridNumber(document.getElementById(targetDropZoneId), NUMBER_OF_GRID_EACH_ROW) 
+      for (let k = newTargetDropZoneId; k <= NUM_OF_DROPZONES; k++){ 
         for (let i = 0; i < gridNum; i++){
-          const column = document.createElement("div");
+          const column = document.createElement("div"); 
           column.classList.add("indent")
           document.getElementById((k).toString()).appendChild(column);
         }
@@ -36,35 +37,33 @@ function onDrop(event) {
     }
   }
 
-function getGridNumber(elementId, totalGrid) {
-
-  elem_id = elementId.children
-  elem_id = Array.from(elem_id)
+function getGridNumber(element, totalGrid) {
+  elem_children = element.children 
+  elem_children = Array.from(elem_children)
   found_num = 0
   for (let j = 0; j < totalGrid; j++){
-
-    if (!(elem_id[j]?.classList.contains("indent")) || (elem_id[j].children.length > 0 && !(elem_id[j]?.children[0].classList.contains("indent")))){
+    if (!(elem_children[j]?.classList.contains("indent")) || (elem_children[j].children.length > 0 && !(elem_children[j]?.children[0].classList.contains("indent")))){
       found_num = j
       break
     }
   }
   item = null
-  if (elem_id[found_num]?.children.length > 0){
-    if(!(elem_id[found_num].children[0]?.classList.contains("indent"))){
-      item = document.getElementById(elem_id[found_num].children[0].id)
+  console.log(elem_children[found_num].children)
+  if (elem_children[found_num]?.children.length > 0){
+    if(!(elem_children[found_num].children[0]?.classList.contains("indent"))){
+      item = document.getElementById(elem_children[found_num].children[0].id)
     }
   }else{
-    item = document.getElementById(elem_id[found_num]?.id);
+    item = document.getElementById(elem_children[found_num]?.id);
   }
-
-  const rect = item?.getBoundingClientRect();
-  const gridWidth = 59.29;
-  const gridCol = Math.floor(rect?.left / gridWidth) + 1;
+  const rect = item?.getBoundingClientRect(); 
+  const GRIDWIDTH = 59.29;
+  const gridCol = Math.floor(rect?.left / GRIDWIDTH) + 1;
   return gridCol;
 }
 
-function newLineOnColon(cur_text, cur_id){
-  if (cur_text.includes(":")){
+function findDropZoneId(last_elemt_text, cur_id){
+  if (last_elemt_text.includes(":")){
     curId = parseInt(cur_id);
     curId += 1;
     return (curId.toString());
@@ -76,18 +75,14 @@ function newLineOnColon(cur_text, cur_id){
 
 $('.draggable').draggable({
     stop: function(event, ui) {
-      // Get the position of the current element and all other draggable elements
       var currentPos = $(this).offset();
       var otherPositions = $('.draggable').not(this).map(function() {
         return $(this).offset();
       });
   
-      // Loop through all other draggable elements and check if they are within a certain distance of the current element
       $.each(otherPositions, function(index, otherPos) {
-        // Calculate the distance between the current element and the other element using the Euclidean distance formula
         var distance = Math.sqrt(Math.pow(currentPos.left - otherPos.left, 2) + Math.pow(currentPos.top - otherPos.top, 2));
   
-        // If the distance is less than 50 pixels, attach the current element to the other element
         if (distance < 50) {
           $(event.target).appendTo($('.draggable').not(event.target)[index]);
         }
@@ -95,9 +90,9 @@ $('.draggable').draggable({
     }
 });
 
-function findDivToken(divInput){
+function findDivToken(divInput){ 
   var name = ""
-  if (divInput.getAttribute("class").includes("droptarget")){
+  if (divInput.getAttribute("class").includes("droptarget")){ 
     name = divInput.getAttribute("class").replace("droptarget", "").trim()
   }
   else{
@@ -132,9 +127,9 @@ var result_json = {"lines":[{"indentation":0,"tokens":[{"text":"\n            co
 button.addEventListener("click", () => {
   dropzone_id = [1, 2, 3, 4];
   json_layout = {"lines": [{"indentation": 0},
-                          {"indentation": getGridNumber(document.getElementById("2"), 70)},
-                          {"indentation": getGridNumber(document.getElementById("3"), 70)},
-                          {"indentation": getGridNumber(document.getElementById("4"), 70)}]}
+                          {"indentation": getGridNumber(document.getElementById("2"), NUMBER_OF_GRID_EACH_ROW)},
+                          {"indentation": getGridNumber(document.getElementById("3"), NUMBER_OF_GRID_EACH_ROW)},
+                          {"indentation": getGridNumber(document.getElementById("4"), NUMBER_OF_GRID_EACH_ROW)}]}
   for (let i = 0; i < dropzone_id.length; i++){
     str_dropzone_id = (dropzone_id[i]).toString();
     curr_zone = document.getElementById(str_dropzone_id)
@@ -156,4 +151,6 @@ button.addEventListener("click", () => {
     setTimeout(function(){location.reload()}, 3000)
   }
 });
+
+
 }
